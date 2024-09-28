@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../Context/StoreContext';
 import { RxCross2 } from "react-icons/rx";
 import { MdOutlineSort } from "react-icons/md";
@@ -9,8 +9,14 @@ import { MdOutlineSort } from "react-icons/md";
 const Navbar = ({ setShowLogin }) => {
   const [menu, setmenu] = useState("home");
   const [showMenu, setShowMenu] = useState(false);
-  const { getCartItemsTotal } = useContext(StoreContext);
+  const { getCartItemsTotal, token, setToken } = useContext(StoreContext);
+  const navigate = useNavigate();
+const logout = ()=>{
+  localStorage.removeItem("token");
+  setToken("")
+  navigate("/");
 
+}
   return (
     <div className='navbar-top'>
       <Link to={"/"}>
@@ -30,17 +36,36 @@ const Navbar = ({ setShowLogin }) => {
           </Link>
           <div className={getCartItemsTotal() === 0 ? "" : 'dot'}></div>
         </div>
-        <button onClick={() => setShowLogin(true)} className='nav-signin-button'>Sign in</button>
+        {!token ? (
+          <button onClick={() => setShowLogin(true)} className='nav-signin-button'>Sign in</button>
+        ) : (
+          <div className='navbar-profile'>
+            <img src={assets.profile_icon}  alt="Profile icon" />
+            <div className='navbar-dropdown2'>
+              <li>
+                <img src={assets.bag_icon} alt="Orders" />
+                <p>Orders</p>
+              </li>
+              <hr />
+              <li>
+                <img src={assets.logout_icon} alt="Logout" />
+                <p onClick={logout}>Logout</p>
+              </li>
+            </div>
+          </div>
+        )}
+
         <MdOutlineSort className='sidebar-icon' onClick={() => setShowMenu(prev => !prev)} />
         {/* Side bar for mobile */}
-        <div className={`side-bar ${showMenu ? "side-active":""}`}>
+        <div className={`side-bar ${showMenu ? "side-active" : ""}`}>
           <RxCross2 className='cross-icon' onClick={() => setShowMenu(false)} />
           <ul className='side-nav' >
             <Link to="/">Home</Link>
-            <a href='#explore-menu ' onClick={()=>setShowMenu(false)}>Menu</a>
-            <a href="#app-download" onClick={()=>setShowMenu(false)}>Mobile-app</a>
-            <a href='#footer' onClick={()=>setShowMenu(false)}>Contact - Us</a>
-            <button className='side-sign' onClick={()=>{setShowMenu(false)
+            <a href='#explore-menu ' onClick={() => setShowMenu(false)}>Menu</a>
+            <a href="#app-download" onClick={() => setShowMenu(false)}>Mobile-app</a>
+            <a href='#footer' onClick={() => setShowMenu(false)}>Contact - Us</a>
+            <button className='side-sign' onClick={() => {
+              setShowMenu(false)
               setShowLogin(true)
             }}>Sign in</button>
 

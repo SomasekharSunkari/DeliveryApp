@@ -6,7 +6,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import "./Cart.css";
 
 const Cart = () => {
-  const { food_list, cartItems, removeFromCart, getCartItemsTotal } = useContext(StoreContext);
+  const { foodList, cartItems, removeFromCart, getCartItemsTotal ,url} = useContext(StoreContext);
   const navigate = useNavigate();
 
   if (getCartItemsTotal() <= 0) {
@@ -34,12 +34,12 @@ const Cart = () => {
         </div>
         <br />
         <hr />
-        {food_list.map((item) => {
+        {foodList.map((item) => {
           if (cartItems[item._id] > 0) {
             return (
               <div key={item._id}>
                 <div className='cart-items-titles cart-items-in-cart'>
-                  <img src={item.image} alt="" />
+                  <img src={url+"/images/"+item.image} alt="" />
                   <p>{item.name}</p>
                   <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>

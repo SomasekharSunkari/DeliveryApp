@@ -10,7 +10,9 @@ dotenv.config();
 const loginUser = async (req,res)=>{
     const {email,password} = req.body;
     try{
+        console.log(email)
         const user = await userModel.findOne({email});
+        console.log(user)
         if(!user){
            return res.json({success:false,message:"User not Exists !"});
         }

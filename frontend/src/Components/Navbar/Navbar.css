@@ -156,6 +156,42 @@ right: 0;
     color: tomato;
 }
 
+.navbar-profile{
+    position: relative;
+    
+}
+.navbar-dropdown2 {
+    position: absolute;
+    right: 0;
+    display: none;
+    z-index: 1;
+}
+
+.navbar-profile:hover .navbar-dropdown2 {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff2ef;
+    cursor: pointer;
+    gap:10px;
+    padding: 12px 25px;
+    border-radius: 4px;
+     border:1px solid tomato;
+    outline: 2px solid white; 
+    list-style: none;
+}
+.navbar-dropdown2 li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.navbar-dropdown2 li:hover{
+    color: tomato;
+}
+.navbar-dropdown2 img{
+    width: 20px;
+}
+
 @media (max-width:1110px) {
     .image-nav {
         width: 140px;

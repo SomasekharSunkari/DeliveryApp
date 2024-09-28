@@ -9,7 +9,7 @@ import gsap from 'gsap'
 import "./FoodDisplay.css"
 const FoodDisplay = ({ category }) => {
  
-  const { food_list } = useContext(StoreContext);
+  const { foodList ,url} = useContext(StoreContext);
 useEffect(()=>{
   
   
@@ -26,9 +26,9 @@ useEffect(()=>{
     <div className='food_disply' id='food_display'>
       <h2>Top Dishes Near You</h2>
       <div className="food_items">
-        {food_list.map((item, index) => {
+        {foodList.map((item, index) => {
           if (category === "All" || category === item.category)
-            return <div className="stager-box"><FoodItem  key={index} id={item._id} name={item.name} description={item.description} image={item.image} price={item.price} /></div>
+            return <div key={index} className="stager-box"><FoodItem  key={index} id={item._id} name={item.name} description={item.description} image={item.image} price={item.price} /></div>
         })}
       </div>
 
