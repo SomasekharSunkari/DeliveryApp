@@ -11,6 +11,7 @@ import { ScrollTrigger } from 'gsap/all'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import Thankyou from './Components/Thankyou.jsx'
+import VerifyOrder from './Components/VerifyOrder/VerifyOrder.jsx'
 gsap.registerPlugin(ScrollTrigger);
 function App() {
   const [showlogin, setShowLogin] = useState(false);
@@ -26,6 +27,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/placeorder' element={<PlaceHolder />} />
           <Route path='/thankyou' element={<Thankyou/>}/>
+          <Route path='/verify' element={<VerifyOrder/>}/>
         </Routes>
 
       </div>

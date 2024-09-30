@@ -63,7 +63,7 @@ const ContextProvider = (props) => {
         return total;
     }
     const ContextValue = {
-        food_list,
+        // food_list,
         cartItems,
         setCartItems,
         addToCart,
