@@ -5,7 +5,6 @@ const placeOrder = async (req, res) => {
 
     const frontend_url = "http://localhost:5173"
 
-    console.log("Entered")
     const stripe = new Stripe(process.env.STRIPE_KEY);
     try {
         const newOrder = new OrderModel({
@@ -14,7 +13,6 @@ const placeOrder = async (req, res) => {
             amount: req.body.amount,
             adress: req.body.address
         })
-        // console.log(newOrder)
         await newOrder.save();
         await userModel.findByIdAndUpdate(req.body.userId, { cartDate: {} })
         const line_items = req.body.items.map((item) => ({
@@ -41,7 +39,6 @@ const placeOrder = async (req, res) => {
             quantity: 1
 
         })
-        console.log(line_items)
 
         const session = await stripe.checkout.sessions.create({
             line_items: line_items,
@@ -55,7 +52,6 @@ const placeOrder = async (req, res) => {
     }
     catch (err) {
         console.log(err.message)
-        console.log("This is sekhar in error in conse")
         res.json({ success: false, message: "Error in Stripe" })
     }
 
@@ -68,7 +64,7 @@ const verifyOrder = async (req, res) => {
             return res.json({ success: true, message: "Paid" })
         }
         else {
-            console.log("error in catch")
+            console.log("error in Verify Order")
             await OrderModel.findByIdAndDelete(orderId)
             return res.json({ success: false, message: "Not Paid" })
         }
@@ -82,7 +78,6 @@ const verifyOrder = async (req, res) => {
 const userOrders = async (req, res) => {
     try {
         const orders = await OrderModel.find({ userId: req.body.userId });
-        console.log(orders)
         return res.json({ success: true, data: orders });
 
     }

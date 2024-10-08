@@ -4,7 +4,6 @@ const addToCart = async (req, res) => {
 
         // const { userId } = req.body;
         const userData = await userModel.findOne({_id: req.body.userId});
-        console.log(userData)
         let cartData = userData.cartData;
 
         if (!cartData[req.body.id]) {
