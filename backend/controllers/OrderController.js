@@ -51,7 +51,7 @@ const placeOrder = async (req, res) => {
 
 
         })
-         return res.json({ success: true, session_url: session.url })
+        return res.json({ success: true, session_url: session.url })
     }
     catch (err) {
         console.log(err.message)
@@ -60,24 +60,64 @@ const placeOrder = async (req, res) => {
     }
 
 }
-const verifyOrder = async (req,res)=>{
-    const {success,orderId} = req.body;
-    try{
-        if(success == "true"){
-            await OrderModel.findByIdAndUpdate(orderId,{payment:true})
-           return  res.json({success:true,message:"Paid"})
+const verifyOrder = async (req, res) => {
+    const { success, orderId } = req.body;
+    try {
+        if (success == "true") {
+            await OrderModel.findByIdAndUpdate(orderId, { payment: true })
+            return res.json({ success: true, message: "Paid" })
         }
-        else{
+        else {
             console.log("error in catch")
             await OrderModel.findByIdAndDelete(orderId)
-           return  res.json({success:false,message:"Not Paid"})
+            return res.json({ success: false, message: "Not Paid" })
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err);
-       return  res.json({success:false,message:"Error in Verifying Order"})
+        return res.json({ success: false, message: "Error in Verifying Order" })
 
     }
 }
+const userOrders = async (req, res) => {
+    try {
+        const orders = await OrderModel.find({ userId: req.body.userId });
+        console.log(orders)
+        return res.json({ success: true, data: orders });
 
-export { placeOrder,verifyOrder };
+    }
+    catch (err) {
+
+        console.log(err)
+        return res.json({ success: false, message: "Error in User Orders Api request !" })
+    }
+
+}
+const listOrders = async (req, res) => {
+    try{
+        const orders = await OrderModel.find({});
+        res.json({success:true,data:orders});
+
+    }
+    catch(err){
+        console.log(err);
+        res.json({success:false,message:"error In list orders !"})
+
+    }
+
+}
+const updateStatus =  async(req,res)=>{
+    try{
+
+        await OrderModel.findByIdAndUpdate(req.body.orderId,{status:req.body.status})
+        res.json({success:true,message:"Status Updated !"})
+    }
+    catch(err){
+        console.log(err)
+        res.json({success:false,message:"Error in Updateing the Status"})
+
+    }
+
+}
+
+export { placeOrder, verifyOrder, userOrders ,listOrders,updateStatus};

@@ -21,8 +21,6 @@ const PlaceHolder = () => {
     country: "",
     phone: ""
   });
-
-
   const onChangeHandeler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -58,7 +56,12 @@ const PlaceHolder = () => {
 
   }
   useEffect(() => {
-    console.log(data)
+    if (!token){
+      navigate("/cart")
+    }
+    else if(getCartItemsTotal() === 0){
+      navigate("/cart")
+    }
 
   }, [data])
 

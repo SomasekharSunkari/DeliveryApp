@@ -10,7 +10,6 @@ const VerifyOrder = () => {
     const success = searchParams.get("success");
     const orderId = searchParams.get("orderId");
     const navigate = useNavigate();
-    console.log(success, orderId)
     const verifyOrder = async () => {
         const response = await axios.post(url + "/api/order/verify", { success, orderId },{ headers: { token } });
         if (response.data.success) {

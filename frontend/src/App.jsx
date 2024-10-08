@@ -9,6 +9,7 @@ import Footer from './Components/Footer/Footer.jsx'
 import Loginpopup from './Components/Loginpopup/Loginpopup.jsx'
 import { ScrollTrigger } from 'gsap/all'
 import gsap from 'gsap'
+import Myorders from './Components/Myorders/Myorders.jsx'
 import { useGSAP } from '@gsap/react'
 import Thankyou from './Components/Thankyou.jsx'
 import VerifyOrder from './Components/VerifyOrder/VerifyOrder.jsx'
@@ -28,6 +29,8 @@ function App() {
           <Route path='/placeorder' element={<PlaceHolder />} />
           <Route path='/thankyou' element={<Thankyou/>}/>
           <Route path='/verify' element={<VerifyOrder/>}/>
+          <Route path='/my-orders' element={<Myorders/>}/>
+
         </Routes>
 
       </div>

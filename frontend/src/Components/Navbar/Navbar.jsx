@@ -44,7 +44,7 @@ const logout = ()=>{
             <div className='navbar-dropdown2'>
               <li>
                 <img src={assets.bag_icon} alt="Orders" />
-                <p>Orders</p>
+                <Link to={"my-orders"}>Orders</Link>
               </li>
               <hr />
               <li>
