@@ -1,27 +1,26 @@
 import { createContext, useEffect, useState } from "react";
-import { food_list } from "../../assets/assets";
 import axios from "axios";
 
 export const StoreContext = createContext(null);
 const ContextProvider = (props) => {
-    const url = "http://localhost:4000"
+    const url = "https://foordel-backend.onrender.com"
     const [token, setToken] = useState("");
-    
 
-    useEffect(()=>{
-        async function loadInitData(){
+
+    useEffect(() => {
+        async function loadInitData() {
             await fetchFoodList();
-            if(localStorage.getItem("token")){
+            if (localStorage.getItem("token")) {
                 setToken(localStorage.getItem("token"))
                 await loadCartData(localStorage.getItem("token"))
             }
         }
         loadInitData()
 
-    },[])
+    }, [])
 
     const [cartItems, setCartItems] = useState({});
-    const [foodList,setFoodList] = useState([]);
+    const [foodList, setFoodList] = useState([]);
     const addToCart = async (id) => {
         if (!cartItems[id]) {
             setCartItems(prev => ({ ...prev, [id]: 1 }))
@@ -29,23 +28,23 @@ const ContextProvider = (props) => {
         else {
             setCartItems(prev => ({ ...prev, [id]: prev[id] + 1 }))
         }
-        if(token){
-            await axios.post(url+"/api/cart/addItem",{id},{headers:{token}})
+        if (token) {
+            await axios.post(url + "/api/cart/addItem", { id }, { headers: { token } })
 
         }
     }
-    const loadCartData = async (token)=>{
-        const response = await axios.post(url+"/api/cart/getItems",{},{headers:{token}})
+    const loadCartData = async (token) => {
+        const response = await axios.post(url + "/api/cart/getItems", {}, { headers: { token } })
         setCartItems(response.data.cartData)
     }
-    const removeFromCart =async (id) => {
+    const removeFromCart = async (id) => {
         setCartItems((prev) => ({ ...prev, [id]: prev[id] - 1 }))
-        if(token){
-            await axios.post(url+"/api/cart/removeItem",{id},{headers:{token}})
+        if (token) {
+            await axios.post(url + "/api/cart/removeItem", { id }, { headers: { token } })
         }
     }
-    const fetchFoodList = async ()=>{
-        const response = await axios.get(url+"/api/food/list");
+    const fetchFoodList = async () => {
+        const response = await axios.get(url + "/api/food/list");
         setFoodList(response.data.data)
 
     }
@@ -68,7 +67,7 @@ const ContextProvider = (props) => {
         setCartItems,
         addToCart,
         removeFromCart,
-        getCartItemsTotal, url, token, setToken,foodList
+        getCartItemsTotal, url, token, setToken, foodList
     }
     useEffect(() => {
         console.log(cartItems)
