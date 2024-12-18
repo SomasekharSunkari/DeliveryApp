@@ -16,7 +16,6 @@ const ContextProvider = (props) => {
             }
         }
         loadInitData()
-
     }, [])
 
     const [cartItems, setCartItems] = useState({});
@@ -35,6 +34,7 @@ const ContextProvider = (props) => {
     }
     const loadCartData = async (token) => {
         const response = await axios.post(url + "/api/cart/getItems", {}, { headers: { token } })
+        console.log(response.data.cartData)
         setCartItems(response.data.cartData)
     }
     const removeFromCart = async (id) => {

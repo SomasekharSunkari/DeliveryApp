@@ -5,7 +5,6 @@ const addFood = async (req, res) => {
     if (!req.file) {
         return res.status(400).send({ success: false, message: "Image is required" });
     }
-
     const { name, description, price, category } = req.body;
     const image_filename = req.file.filename;
 
@@ -26,31 +25,31 @@ const addFood = async (req, res) => {
     }
 };
 
- const listFood  = async (req,res)=>{
-    try{
+const listFood = async (req, res) => {
+    try {
         const foods = await foodModel.find({});
-        res.send({success:true,data:foods})
+        res.send({ success: true, data: foods })
     }
-    catch(err){
+    catch (err) {
         console.log(err.message)
-        req.send({success:false,message:"Error while listing the food items"})
+        req.send({ success: false, message: "Error while listing the food items" })
 
     }
 }
 
-const removeFoodItem = async (req,res)=>{
-    try{
+const removeFoodItem = async (req, res) => {
+    try {
         const foodItem = await foodModel.findById(req.body.id);
-        fs.unlink(`uploads/${foodItem.image}`,()=>{
+        fs.unlink(`uploads/${foodItem.image}`, () => {
 
         })
         await foodModel.findByIdAndDelete(req.body.id);
-        res.json({success:true,message:"Food Removed"})
+        res.json({ success: true, message: "Food Removed" })
 
     }
-    catch(Err){
+    catch (Err) {
         console.log(Err.message)
-        return res.json({success:false,message:"Error happend while Deleting file"})
+        return res.json({ success: false, message: "Error happend while Deleting file" })
     }
 }
-export { addFood ,listFood,removeFoodItem};
+export { addFood, listFood, removeFoodItem };
