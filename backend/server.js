@@ -6,7 +6,7 @@ import userRouter from "./routes/userRoute.js";
 import cartRouter from "./routes/cartRoutes.js";
 import orderRouter from "./routes/orderRoute.js";
 const app = express();
-const PORT = 4000;
+const PORT = 4001;
 connectDB();
 app.use(express.json())
 app.use(cors())
@@ -17,7 +17,6 @@ app.use("/api/order", orderRouter);
 app.use("/images", express.static("uploads"))
 
 app.get("/", (req, res) => {
-
     res.send("API WORKING")
 })
 

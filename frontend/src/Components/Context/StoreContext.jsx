@@ -4,6 +4,7 @@ import axios from "axios";
 export const StoreContext = createContext(null);
 const ContextProvider = (props) => {
     const url = "https://foordel-backend.onrender.com"
+    // const url = "http://localhost:4000"
     const [token, setToken] = useState("");
 
 
@@ -16,6 +17,8 @@ const ContextProvider = (props) => {
             }
         }
         loadInitData()
+
+
     }, [])
 
     const [cartItems, setCartItems] = useState({});
@@ -33,8 +36,12 @@ const ContextProvider = (props) => {
         }
     }
     const loadCartData = async (token) => {
+        console.log(token)
         const response = await axios.post(url + "/api/cart/getItems", {}, { headers: { token } })
+        // console.log(re)
         console.log(response.data.cartData)
+        console.log("sekhar")
+
         setCartItems(response.data.cartData)
     }
     const removeFromCart = async (id) => {
