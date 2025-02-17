@@ -29,7 +29,6 @@ const Navbar = ({ setShowLogin }) => {
         <a href='/#footer' onClick={() => setmenu("contact")} className={menu === "contact" ? "active" : ""}>Contact - Us</a>
       </ul>
       <div className='navbar-right'>
-        <img src={assets.search_icon} alt="Search Icon" />
         <div className="navbar-basket">
           <Link to="/cart">
             <img src={assets.basket_icon} alt="Basket Icon" />
@@ -64,18 +63,14 @@ const Navbar = ({ setShowLogin }) => {
             <a href='#explore-menu ' onClick={() => setShowMenu(false)}>Menu</a>
             <a href="#app-download" onClick={() => setShowMenu(false)}>Mobile-app</a>
             <a href='#footer' onClick={() => setShowMenu(false)}>Contact - Us</a>
-            <button className='side-sign' onClick={() => {
+            {!token && <button className='side-sign' onClick={() => {
               setShowMenu(false)
               setShowLogin(true)
             }}>Sign in</button>
-
+            }
           </ul>
-
         </div>
       </div>
-
-      {/* Mobile Sidebar */}
-
     </div>
   );
 };

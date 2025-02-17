@@ -3,25 +3,30 @@ import axios from "axios";
 export const StoreContext = createContext(null);
 const ContextProvider = (props) => {
     const url = "https://foordel-backend.onrender.com"
+    // const url = "http://localhost:4001"
     const [token, setToken] = useState("");
+    const [cartItems, setCartItems] = useState({});
+    const [foodList, setFoodList] = useState([]);
+    useEffect(() => {
+        console.log("Cart itme")
+        console.log(cartItems)
+        console.log("Cart itme")
+
+    }, [])
     useEffect(() => {
         async function loadInitData() {
             await fetchFoodList();
             if (localStorage.getItem("token")) {
                 setToken(localStorage.getItem("token"))
                 await loadCartData(localStorage.getItem("token"))
+                console.log(cartItems)
+
             }
         }
         loadInitData()
-        console.log("Fod lis")
-        console.log(foodList)
-        console.log("Fod lis")
 
 
     }, [])
-
-    const [cartItems, setCartItems] = useState({});
-    const [foodList, setFoodList] = useState([]);
     const addToCart = async (id) => {
         if (!cartItems[id]) {
             setCartItems(prev => ({ ...prev, [id]: 1 }))
@@ -36,6 +41,8 @@ const ContextProvider = (props) => {
     const loadCartData = async (token) => {
         const response = await axios.post(url + "/api/cart/getItems", {}, { headers: { token } })
         setCartItems(response.data.cartData)
+        // console.log(cartItems)
+
     }
     const removeFromCart = async (id) => {
         setCartItems((prev) => ({ ...prev, [id]: prev[id] - 1 }))

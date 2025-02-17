@@ -9,7 +9,6 @@ const authMiddleWare = (req, res, next) => {
     }
     try {
         const { id } = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(id)
         req.body.userId = id;
         next();
     }

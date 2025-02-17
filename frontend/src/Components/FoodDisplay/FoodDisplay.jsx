@@ -7,7 +7,7 @@ import gsap from 'gsap'
 import "./FoodDisplay.css"
 const FoodDisplay = ({ category }) => {
 
-  const { foodList, url } = useContext(StoreContext);
+  const { foodList } = useContext(StoreContext);
   useEffect(() => {
     gsap.to(".stager-box", {
       opacity: 1,

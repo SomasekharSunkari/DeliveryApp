@@ -9,7 +9,12 @@ const app = express();
 const PORT = 4001;
 connectDB();
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "DELETE", "PUT"]
+}
+
+))
 app.use("/api/food", foodRouter)
 app.use("/api/user", userRouter)
 app.use("/api/cart", cartRouter)
