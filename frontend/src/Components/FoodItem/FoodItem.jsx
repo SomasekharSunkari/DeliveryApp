@@ -4,20 +4,17 @@ import { assets } from '../../assets/assets'
 import { StoreContext } from '../Context/StoreContext';
 
 const FoodItem = ({ id, name, price, description, image }) => {
+    useEffect(() => {
+        console.log(cartItems)
+
+    }, [])
     const { cartItems,
         addToCart,
         removeFromCart, url } = useContext(StoreContext);
-    useEffect(() => {
-        console.log("Cart")
-        // console.log(cartItems.)
-        console.log("cart2")
-
-
-    }, [])
-
     return (
         <div className={`food_item`}>
             <div className="food_item_image">
+
                 <img src={url + "/images/" + image} className='food_image_main' alt="Food_Item_Image" />
                 {cartItems[id] ?
                     <img src={assets.add_icon_white} className='add' onClick={() => addToCart(id)} />

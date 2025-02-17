@@ -3,6 +3,7 @@ import fs from "fs"
 
 const addFood = async (req, res) => {
     if (!req.file) {
+        //This req.file is done by multer i the fuction that runs before this function executed in routes check there
         return res.status(400).send({ success: false, message: "Image is required" });
     }
     const { name, description, price, category } = req.body;

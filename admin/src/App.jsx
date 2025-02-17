@@ -9,7 +9,6 @@ import Orders from './pages/Orders/Orders'
 import { url } from './assets/assets'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Myorders from '../../frontend/src/Components/Myorders/Myorders'
 const App = () => {
   return (
     <div>

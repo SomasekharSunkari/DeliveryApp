@@ -1,13 +1,9 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-
 export const StoreContext = createContext(null);
 const ContextProvider = (props) => {
     const url = "https://foordel-backend.onrender.com"
-    // const url = "http://localhost:4000"
     const [token, setToken] = useState("");
-
-
     useEffect(() => {
         async function loadInitData() {
             await fetchFoodList();
@@ -17,6 +13,9 @@ const ContextProvider = (props) => {
             }
         }
         loadInitData()
+        console.log("Fod lis")
+        console.log(foodList)
+        console.log("Fod lis")
 
 
     }, [])
@@ -32,16 +31,10 @@ const ContextProvider = (props) => {
         }
         if (token) {
             await axios.post(url + "/api/cart/addItem", { id }, { headers: { token } })
-
         }
     }
     const loadCartData = async (token) => {
-        console.log(token)
         const response = await axios.post(url + "/api/cart/getItems", {}, { headers: { token } })
-        // console.log(re)
-        console.log(response.data.cartData)
-        console.log("sekhar")
-
         setCartItems(response.data.cartData)
     }
     const removeFromCart = async (id) => {
@@ -62,23 +55,17 @@ const ContextProvider = (props) => {
                 let iteminfo = foodList.find((fitem) => fitem._id === item)
                 total += iteminfo.price * cartItems[item]
             }
-
         }
-
-
         return total;
     }
     const ContextValue = {
-        // food_list,
         cartItems,
         setCartItems,
         addToCart,
         removeFromCart,
         getCartItemsTotal, url, token, setToken, foodList
     }
-    useEffect(() => {
-        console.log(cartItems)
-    }, [cartItems])
+
     return <StoreContext.Provider value={ContextValue}>
         {props.children}
     </StoreContext.Provider>
