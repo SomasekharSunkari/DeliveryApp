@@ -10,7 +10,7 @@ const PORT = 4001;
 connectDB();
 app.use(express.json())
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://deliveryappmainone.onrender.com",
     methods: ["GET", "POST", "DELETE", "PUT"]
 }
 
