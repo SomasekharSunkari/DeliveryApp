@@ -4,40 +4,41 @@ import "../Loginpopup/Loginpopup.css"
 import { assets } from '../../assets/assets'
 import { StoreContext } from '../Context/StoreContext'
 const Loginpopup = ({ setShowLogin }) => {
-    const {url,token,setToken}  = useContext(StoreContext)
+    const { url, token, setToken } = useContext(StoreContext)
     const [currentState, setState] = useState("Sign Up");
-    const [data,setData]= useState({
-        name:"",
-        email:"",
-        password:""
+    const [data, setData] = useState({
+        name: "",
+        email: "",
+        password: ""
     })
-    const onChangeHadlere = (eve)=>{
+    const onChangeHadlere = (eve) => {
         const name = eve.target.name;
         const value = eve.target.value;
-        setData(data => ({...data,[name]:value}))
+        setData(data => ({ ...data, [name]: value }))
     }
-    const LoginFunc = async (event)=>{
+    const LoginFunc = async (event) => {
         event.preventDefault();
         let newUrl = url;
-        if(currentState === "Login"){
+        if (currentState === "Login") {
             newUrl += "/api/user/login"
         }
-        else{
+        else {
             newUrl += "/api/user/register";
         }
 
-        const response = await axios.post(newUrl,data);
-        if(response.data.success){
+        const response = await axios.post(newUrl, data);
+        if (response.data.success) {
             setToken(response.data.token);
-            localStorage.setItem("token",response.data.token)
+            console.log(response.data.token)
+            localStorage.setItem("token", response.data.token)
             setShowLogin(false)
         }
-        else{
+        else {
             alert(response.data.message)
         }
 
     }
-    
+
     return (
         <div className='login-popup-container'>
             <form className='popup' onSubmit={LoginFunc}>

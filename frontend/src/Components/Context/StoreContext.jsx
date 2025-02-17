@@ -7,12 +7,7 @@ const ContextProvider = (props) => {
     const [token, setToken] = useState("");
     const [cartItems, setCartItems] = useState({});
     const [foodList, setFoodList] = useState([]);
-    useEffect(() => {
-        console.log("Cart itme")
-        console.log(cartItems)
-        console.log("Cart itme")
 
-    }, [])
     useEffect(() => {
         async function loadInitData() {
             await fetchFoodList();
