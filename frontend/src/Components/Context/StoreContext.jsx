@@ -14,7 +14,7 @@ const ContextProvider = (props) => {
             if (localStorage.getItem("token")) {
                 setToken(localStorage.getItem("token"))
                 await loadCartData(localStorage.getItem("token"))
-                console.log(cartItems)
+
 
             }
         }
@@ -36,7 +36,7 @@ const ContextProvider = (props) => {
     const loadCartData = async (token) => {
         const response = await axios.post(url + "/api/cart/getItems", {}, { headers: { token } })
         setCartItems(response.data.cartData)
-        // console.log(cartItems)
+
 
     }
     const removeFromCart = async (id) => {
